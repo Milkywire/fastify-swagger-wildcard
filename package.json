@@ -1,0 +1,18 @@
+{
+  "name": "fastify-swagger-wildcard",
+  "version": "1.0.0",
+  "description": "Shows a problem with the wildcard path and validation of swagger schema",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@fastify/swagger": "^8.12.1",
+    "@fastify/swagger-ui": "^2.0.1",
+    "fastify": "^4.25.0"
+  }
+}
