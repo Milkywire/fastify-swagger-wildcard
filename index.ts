@@ -1,8 +1,11 @@
+import Fastify from "fastify";
+
+import { Type, TypeBoxTypeProvider } from "@fastify/type-provider-typebox";
+
 async function start() {
-  // CommonJs
-  const fastify = require("fastify")({
+  const fastify = Fastify({
     logger: true,
-  });
+  }).withTypeProvider<TypeBoxTypeProvider>();
 
   await setupSwagger(fastify);
 
@@ -11,10 +14,10 @@ async function start() {
     "/id/:id/star/*",
     {
       schema: {
-        params: {
-          id: { type: "number" },
-          "*": { type: "string" },
-        },
+        params: Type.Object({
+          id: Type.Number(),
+          "*": Type.String(),
+        }),
       },
     },
     (request, reply) => {
@@ -35,7 +38,7 @@ start()
   .catch(console.error);
 
 async function setupSwagger(fastify) {
-  await fastify.register(require("@fastify/swagger"), {
+  await fastify.register(import("@fastify/swagger"), {
     openapi: {
       info: {
         title: "Swagger with wildcard route",
@@ -55,7 +58,7 @@ async function setupSwagger(fastify) {
     routePrefix: "/docs",
   });
 
-  await fastify.register(require("@fastify/swagger-ui"), {
+  await fastify.register(import("@fastify/swagger-ui"), {
     routePrefix: "/docs",
     uiConfig: {
       docExpansion: "full",
